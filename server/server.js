@@ -1,5 +1,5 @@
 const express = require('express');
-require('dotenv').config()
+require("dotenv").config()
 const cors = require('cors')
 const ethers = require('ethers');
 const ABI =require('./ABI.json')
@@ -9,14 +9,14 @@ const app = express();
 app.use(cors())
 app.use(express.json());
  
-
+const PORT = process.env.STATUS === 'production' ? (process.env.PROD_PORT) : (process.env.DEV_PORT);
 const API_URL = process.env.API_URL;
 const PRIVATE_KEY = process.env.PRIVATE_KEY; 
 const CONTRACT_ADDRESS = process.env.CONTRACT_ADDRESS;
 
-const alchemyProvider = new ethers.providers.JsonRpcProvider(API_URL);
+const infuraProvider = new ethers.providers.JsonRpcProvider(API_URL);
 
-const signer = new ethers.Wallet(PRIVATE_KEY, alchemyProvider);
+const signer = new ethers.Wallet(PRIVATE_KEY, infuraProvider);
 
 const NFTContract = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer);
 
@@ -44,6 +44,9 @@ app.post('/members',async(req,res)=>{
     }
 })
 
+app.get('/', (req, res)=>{
+  res.send("Hi");
+})
 app.post('/webhook',async(req,res)=>{
     try{
       const account = req.body[0].from;
@@ -55,14 +58,12 @@ app.post('/webhook',async(req,res)=>{
     }
 })
 
-
-let PORT = 5000;
-process.env.STATUS === 'production' ? (PORT = process.env.PROD_PORT) : (PORT = process.env.DEV_PORT)
 const server = app.listen(PORT,()=>{
     console.log(`Server is running at ${PORT}`)
 })
 
 const io = socketIO(server, {cors: {origin: "*"}});
+
 io.on('connection',()=>{
   console.log("Connected")
 })
