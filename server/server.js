@@ -11,14 +11,14 @@ app.use(express.json());
  
 const PORT = process.env.STATUS === 'production' ? (process.env.PROD_PORT) : (process.env.DEV_PORT);
 const API_URL = process.env.API_URL;
-const PRIVATE_KEY = process.env.PRIVATE_KEY; 
 const CONTRACT_ADDRESS = process.env.CONTRACT_ADDRESS;
+// const PRIVATE_KEY = process.env.PRIVATE_KEY; 
 
 const infuraProvider = new ethers.providers.JsonRpcProvider(API_URL);
 
-const signer = new ethers.Wallet(PRIVATE_KEY, infuraProvider);
+// const signer = new ethers.Wallet(PRIVATE_KEY, infuraProvider);
 
-const NFTContract = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer);
+const NFTContract = new ethers.Contract(CONTRACT_ADDRESS, ABI, infuraProvider);
 
 const fetchNFTs = async(account)=>{
     try{
@@ -33,11 +33,11 @@ app.post('/members',async(req,res)=>{
     
     try{
        const account = req.body.from;
-       const numNFTs = await fetchNFTs(account)
+       const numNFTs = await fetchNFTs(account);
        if(numNFTs>0){
          res.status(200).json({status:200,numNFTs})
        }else{
-         res.status(404).json({status:404,message:"You don't own any nft",numNFTs});
+         res.status(404).json({status:404,message:"You don't own any nft", contract: NFTContract.address});
        }
     }catch(error){
         res.status(500).json({status:500,message:"Internal Server Error"});
