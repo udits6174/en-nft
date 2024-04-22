@@ -6,7 +6,7 @@ import '../App.css'
 const Member = () => {
   const navigateTo = useNavigate();
   useEffect(()=>{
-    const socketInstance = io('https://nftune-be.vercel.app');
+    const socketInstance = io('https://en-nft.vercel.app');
     console.log("connect", socketInstance);
     socketInstance.on('nftsUpdated', (data)=>{
       console.log(data.userNFTs);

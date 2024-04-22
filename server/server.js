@@ -29,8 +29,10 @@ const fetchNFTs = async(account)=>{
     }
 }
 
+app.get('/members', async(req,res)=>{
+  res.status(500).json({status:404,message:"Bad request"});
+})
 app.post('/members',async(req,res)=>{
-    
     try{
        const account = req.body.from;
        const numNFTs = await fetchNFTs(account);

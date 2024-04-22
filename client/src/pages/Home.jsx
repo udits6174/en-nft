@@ -9,7 +9,7 @@ const Home = () => {
     try {
       const _walletAddress = location.state.address;
       const response = await axios.post(
-        "https://nftune-be.vercel.app/members",
+        "https://en-nft.vercel.app/members",
         {
           from: _walletAddress,
         },
