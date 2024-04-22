@@ -7,7 +7,7 @@ const headers = {
 };
 const data = {
   name: 'My Destination',
-  to_url: 'https://nftune-be.vercel.app/webhook',
+  to_url: 'https://en-nft.onrender.com/webhook',
   webhook_type: 'POST',
   service: 'webhook',
   payload_type: 5

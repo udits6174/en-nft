@@ -50,7 +50,7 @@ app.post('/webhook',async(req,res)=>{
     try{
       const account = req.body[0].from;
       const numNFTs = await fetchNFTs(account);
-      io.emit('nftsUpdated',{userNFTs:numNFTs})
+      io.emit('nftsUpdated',{userNFTs:numNFTs});
       res.status(200).json({status:200,message:"Webhook Triggered"})
     }catch(error){
       console.error(error)

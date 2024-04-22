@@ -8,8 +8,11 @@ import NFT3 from "../assets/NFT3.png";
 const Member = () => {
   const navigateTo = useNavigate();
   useEffect(() => {
-    const socketInstance = io("https://en-nft.vercel.app");
-    console.log("connect", socketInstance);
+    const socketInstance = io("https://en-nft.onrender.com", {
+    reconnectionAttempts: 3,
+    timeout: 10000,
+  });
+
     socketInstance.on("nftsUpdated", (data) => {
       console.log(data.userNFTs);
       if (data.userNFTs < 1) {

@@ -13,7 +13,7 @@ const Home = () => {
       const _walletAddress = location.state.address;
       const response = await axios
         .post(
-          "https://en-nft.vercel.app/members",
+          "https://en-nft.onrender.com/members",
           {
             from: _walletAddress,
           },
