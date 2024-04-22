@@ -3,7 +3,7 @@ const axios = require('axios');
 
 const headers = {
   'accept': 'application/json',
-  'x-api-key': 'QN_faccd3f65dab4ace849187fc66c85da1'  //YOUR API-KEY from Quicknode
+  'x-api-key': process.env.QN_API_KEY  //YOUR API-KEY from Quicknode
 };
 
 const data = {
@@ -12,7 +12,7 @@ const data = {
   expression: 'KHR4X2xvZ3NfdG9waWMxID1+ICdFQzFiMzE0QWE1YWNFNjFjOEE0MGJDQjEyZjk0QjNkYzFBRTJEMGE3JykgJiYgKHR4X2xvZ3NfYWRkcmVzcyA9PSAnMHg3MDVDYzdDOWY1QzcwODk0YzNiZjFjOUJENUIzNDljOTk4ZjMzRTIzJykgJiYgKHR4X2xvZ3NfdG9waWMwID09ICcweGRkZjI1MmFkMWJlMmM4OWI2OWMyYjA2OGZjMzc4ZGFhOTUyYmE3ZjE2M2M0YTExNjI4ZjU1YTRkZjUyM2IzZWYnKQ==',
   network: 'ethereum-sepolia',
   //node .\destination.js to generate id
-  destinationIds: ['']
+  destinationIds: ['94c92131-4419-4f18-aa01-8ffb8d944028']
 };
 
 axios.post('https://api.quicknode.com/quickalerts/rest/v1/notifications', data, { headers })

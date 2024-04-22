@@ -5,22 +5,21 @@ import '../App.css'
 
 const Member = () => {
   const navigateTo = useNavigate();
-    useEffect(()=>{
-      const socketInstance = io('http://localhost:5000');
-      console.log("connect1", socketInstance);
-      socketInstance.on('nftsUpdated', (data)=>{
-        console.log(data.userNFTs);
-        if(data.userNFTs<1){
-          navigateTo('/');
-
-        }
+  useEffect(()=>{
+    const socketInstance = io('https://nftune-be.vercel.app');
+    console.log("connect", socketInstance);
+    socketInstance.on('nftsUpdated', (data)=>{
+      console.log(data.userNFTs);
+      if(data.userNFTs<1){
+        navigateTo('/');
       }
-        )
+    }
+      )
       
       return()=>{
         socketInstance.disconnect()
       }
-    },[])
+    },[navigateTo])
 
     return (
       <div className="members-only-page">
